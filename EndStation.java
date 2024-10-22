@@ -1,3 +1,7 @@
-public class EndStation {
-    
+public class EndStation extends Station {
+    //constructor
+
+    //makeEnd
+
+    //toString
 }
