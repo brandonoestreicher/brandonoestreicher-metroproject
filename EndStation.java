@@ -1,7 +1,10 @@
 public class EndStation extends Station {
     //constructor
+    public EndStation(String name, String line) {
+        super(name, line);
+    }
 
-    //makeEnd
+    //makeEnd TODO:
 
-    //toString
+    //toString TODO:
 }
