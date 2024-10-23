@@ -4,7 +4,13 @@ public class EndStation extends Station {
         super(name, line);
     }
 
-    //makeEnd TODO:
+    //makeEnd
+    public void makeEnd() {
+        this.prev = this.next;
+    }
 
-    //toString TODO:
+    //toString
+    public String toString() {
+        return ("ENDSTATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + " next station: " + this.next.name);
+    }
 }

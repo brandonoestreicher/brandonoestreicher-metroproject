@@ -45,9 +45,14 @@ public class Station {
     //tripLength TODO:
     public int tripLength(Station other) {
         //call helper function
+
+        return 0;
     }
 
     //TODO: make tripLength helper function
+    public int tripLengthRecursive(Station other) {
+        return 0;
+    }
 
     //toString
     public String toString() {
