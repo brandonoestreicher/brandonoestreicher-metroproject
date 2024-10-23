@@ -5,13 +5,21 @@ public class Station {
     protected Station next;
     protected Station prev;
     protected boolean inService = true;
-    //FIXME:
-    //maybe make a "protected boolean visited"
+    //for use by tripLength:
+    protected boolean visited;
 
     //constructor
     public Station (String name, String line) {
         this.name = name;
         this.line = line;
+    }
+
+    //getName, to handle null names easily
+    public String getName() {
+        if (this.name == null) {
+            return "none";
+        }
+        return this.name;
     }
     //addPrev
     public void addPrev(Station prev) {
@@ -23,6 +31,10 @@ public class Station {
         this.next = next;
     }
 
+    //isAvailable
+    public boolean isAvailable() {
+        return inService;
+    }
     //swtichAvailable
     public void switchAvailable() {
         this.inService = !this.inService;
@@ -56,6 +68,9 @@ public class Station {
 
     //toString
     public String toString() {
-        return ("STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + " next station: "  +this.next.name);
+
+        System.out.println(this.getName());
+
+        return ("STATION " + this.getName() + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.getName() + " next station: "  +this.next.getName());
     }
 }

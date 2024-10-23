@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class TransferStation extends Station {
-    ArrayList<Station> transfers;
+    ArrayList<Station> otherStations;
     //constructor
     public TransferStation(String name, String line) {
         super(name, line);
@@ -14,7 +14,7 @@ public class TransferStation extends Station {
             prev.next = this;
         }
         //add the station to the list of transfers
-        transfers.add(this);
+        otherStations.add(this);
         
     }
 
@@ -26,17 +26,24 @@ public class TransferStation extends Station {
             next.prev = this;
         }
         //add the station to the list of transfers
-        transfers.add(this);
+        otherStations.add(this);
     }
 
-    //toString TODO:
+    //toString FIXME: add support for null -> none (maybe add a getName() method to the station class)
     public String toString() {
-        String toPrint =  "TRANSFERSTATION" + this.name +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.name +", next station: " + this.next.name +"\n\tTransfers: \n";
+        String toReturn =  "TRANSFERSTATION" + this.getName() +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.getName() +", next station: " + this.next.getName() +"\n\tTransfers: \n";
 
         //for i = 0 to transfers.size
-            //toPrint += "\t" + transfers.get(i).toString();
+        for (int i = 0; i < otherStations.size(); i++) {
+            //if (transfers.get(i).name == null) {
+                //toReturn += "\tSTATION: " + "none" + ": line" + transfers.get(i).line + " line, in service:" + transfers.get(i).inService + ", previous station: " + transfers.get(i).prev + ", next station: " + transfers.get(i).next + "\n";
+            //}
+            //toReturn += /* */"\tSTATION: " + transfers.get(i).name + ": line" + transfers.get(i).line + " line, in service:" + transfers.get(i).inService + ", previous station: " + transfers.get(i).prev + ", next station: " + transfers.get(i).next + "\n";
 
-        //return toPrint
+            //toReturn += "\t" + transfers.get(i).toString();
+            toReturn += "\t" + otherStations.get(i).toString();
+        }
+        return toReturn;
 
     }
 }
