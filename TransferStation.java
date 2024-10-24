@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class TransferStation extends Station {
-    ArrayList<Station> otherStations;
+    ArrayList<Station> otherStations = new ArrayList<Station>();
     //constructor
     public TransferStation(String name, String line) {
         super(name, line);
@@ -29,7 +29,7 @@ public class TransferStation extends Station {
         otherStations.add(this);
     }
 
-    //toString FIXME: add support for null -> none (maybe add a getName() method to the station class)
+    //toString FIXME: add support for null -> none (maybe add a getName()
     public String toString() {
         String toReturn =  "TRANSFERSTATION" + this.getName() +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.getName() +", next station: " + this.next.getName() +"\n\tTransfers: \n";
 

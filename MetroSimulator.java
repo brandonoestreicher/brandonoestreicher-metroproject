@@ -65,8 +65,15 @@ public class MetroSimulator{
 
 	public static EndStation makeOrangeLine(){
 		va_square.connect(clarendon);
-		
-		//connect the other stations here
+		clarendon.connect(court_house);
+		court_house.connect(foggy_bottom);
+		foggy_bottom.connect(farragut_west);
+		farragut_west.connect(mcpherson_square);
+		mcpherson_square.connect(metro_center);
+		metro_center.connect(federal_triangle);
+		federal_triangle.connect(smithsonian);
+		smithsonian.makeEnd();
+		va_square.makeEnd();
 
 		return va_square;
 
@@ -79,6 +86,7 @@ public class MetroSimulator{
 		metro_center.addTransferStationNext(gallery_place);
 		farragut_north.addNext(metro_center);
 		gallery_place.addPrev(metro_center);
+		gallery_place.connect(judiciary_square);
 		woodley_park.makeEnd();
 		judiciary_square.makeEnd();
 
@@ -87,8 +95,12 @@ public class MetroSimulator{
 
 	public static EndStation makePurpleLine(){
 		s1.connect(s2);
-		
-		//connect the other stations here
+		s2.connect(s3);
+		metro_center.addTransferStationPrev(s3);
+		metro_center.addTransferStationNext(s4);
+		s3.addNext(metro_center);
+		s4.addPrev(metro_center);
+		s4.connect(s5);
 
 		return s1;
 	}
