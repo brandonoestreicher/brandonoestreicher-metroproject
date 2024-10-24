@@ -41,7 +41,7 @@ public class TransferStation extends Station {
             //toReturn += /* */"\tSTATION: " + transfers.get(i).name + ": line" + transfers.get(i).line + " line, in service:" + transfers.get(i).inService + ", previous station: " + transfers.get(i).prev + ", next station: " + transfers.get(i).next + "\n";
 
             //toReturn += "\t" + transfers.get(i).toString();
-            toReturn += "\t" + otherStations.get(i).toString();
+            toReturn += "\t" + otherStations.get(i).toString() + "\n";
         }
         return toReturn;
 

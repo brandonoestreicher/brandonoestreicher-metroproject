@@ -24,11 +24,15 @@ public class Station {
     //addPrev
     public void addPrev(Station prev) {
         this.prev = prev;
+        prev.next = this;
     }
 
     //addNext
     public void addNext(Station next) {
         this.next = next;
+        if (next != null) {
+            next.prev = this;
+        }
     }
 
     //isAvailable
@@ -52,6 +56,7 @@ public class Station {
     //connect
     public void connect(Station other) {
         this.addNext(other);
+        other.addPrev(this);
     }
 
     //tripLength TODO:
@@ -68,9 +73,10 @@ public class Station {
 
     //toString
     public String toString() {
+        System.out.println("tostringtest");
 
         System.out.println(this.getName());
 
-        return ("STATION " + this.getName() + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.getName() + " next station: "  +this.next.getName());
+        return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: "  + this.next.name;
     }
 }

@@ -6,11 +6,19 @@ public class EndStation extends Station {
 
     //makeEnd
     public void makeEnd() {
+        if (this.prev == null) {
         this.prev = this.next;
+        }
+        if (this.next == null) {
+            this.next = this.prev;
+        }
     }
 
     //toString
     public String toString() {
-        return ("ENDSTATION " + this.getName() + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.getName() + " next station: " + this.next.getName());
+        System.out.println("test");
+
+        System.out.println(this.getName());
+        return "ENDSTATION " + this.getName() + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.getName() + " next station: " + this.next.getName();
     }
 }
