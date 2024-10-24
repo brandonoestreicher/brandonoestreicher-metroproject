@@ -1,7 +1,7 @@
 public class EndStation extends Station {
     //constructor
-    public EndStation(String name, String line) {
-        super(name, line);
+    public EndStation(String line, String name) {
+        super(line, name);
     }
 
     //makeEnd
@@ -16,9 +16,10 @@ public class EndStation extends Station {
 
     //toString
     public String toString() {
-        System.out.println("test");
+        //FIXME: handle nulls
+        System.out.println("endstationtest");
 
-        System.out.println(this.getName());
-        return "ENDSTATION " + this.getName() + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.getName() + " next station: " + this.next.getName();
+        System.out.println(this.name);
+        return "ENDSTATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: " + this.next.name;
     }
 }

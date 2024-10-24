@@ -8,18 +8,18 @@ public class Station {
     protected boolean inService = true;
 
     //constructor
-    public Station (String name, String line) {
+    public Station (String line, String name) {
         this.name = name;
         this.line = line;
     }
 
     //getName, to handle null names easily
-    public String getName() {
+    /*public String getName() {
         if (this.name == null) {
             return "none";
         }
         return this.name;
-    }
+    }*/
     //addPrev
     public void addPrev(Station prev) {
         this.prev = prev;
@@ -58,6 +58,7 @@ public class Station {
         other.addPrev(this);
     }
 
+    /*
     //tripLength TODO:
     public int tripLength(Station destStation) {
         ArrayList<Station> visitedStations = new ArrayList<Station>();
@@ -75,7 +76,8 @@ public class Station {
 
         return tripLength;
     }
-
+    */
+    /*
     //TODO: make tripLength helper function
     public int tripLengthRecursive(Station destStation, Station nextStation, ArrayList<Station> visitedStations, int tripLength) {
         //base cases
@@ -134,12 +136,14 @@ public class Station {
         }
         return 0;
     }
+    */
 
     //toString
     public String toString() {
+        //FIXME: handle nulls
         System.out.println("tostringtest");
 
-        System.out.println(this.getName());
+        System.out.println(this.name);
 
         return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: "  + this.next.name;
     }

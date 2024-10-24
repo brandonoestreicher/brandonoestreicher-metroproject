@@ -2,8 +2,8 @@ import java.util.ArrayList;
 public class TransferStation extends Station {
     ArrayList<Station> otherStations = new ArrayList<Station>();
     //constructor
-    public TransferStation(String name, String line) {
-        super(name, line);
+    public TransferStation(String line, String name) {
+        super(line, name);
     }
 
     //addTransferStationPrev
@@ -31,7 +31,8 @@ public class TransferStation extends Station {
 
     //toString FIXME: add support for null -> none (maybe add a getName()
     public String toString() {
-        String toReturn =  "TRANSFERSTATION" + this.getName() +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.getName() +", next station: " + this.next.getName() +"\n\tTransfers: \n";
+        //FIXME: add if statement to check if next is null, and an if statement to check is prev is null, and then handle correctly (you might even want to do one with both next and prev null)
+        String toReturn =  "TRANSFERSTATION" + this.name +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.name +", next station: " + this.next.name +"\n\tTransfers: \n";
 
         //for i = 0 to transfers.size
         for (int i = 0; i < otherStations.size(); i++) {
