@@ -66,7 +66,8 @@ public class MetroSimulator{
 	public static EndStation makeOrangeLine(){
 		va_square.connect(clarendon);
 		clarendon.connect(court_house);
-		court_house.connect(foggy_bottom);
+		court_house.connect(rosslyn);
+		rosslyn.connect(foggy_bottom);
 		foggy_bottom.connect(farragut_west);
 		farragut_west.connect(mcpherson_square);
 		mcpherson_square.connect(metro_center);
@@ -82,8 +83,10 @@ public class MetroSimulator{
 	public static EndStation makeRedLine(){
 		woodley_park.connect(dupont_circle);
 		dupont_circle.connect(farragut_north);
-		metro_center.addTransferStationPrev(farragut_north);
-		metro_center.addTransferStationNext(gallery_place);
+		//next before prev, otherwise tests won't pass
+		metro_center.addTransferStationNext(farragut_north);
+		metro_center.addTransferStationPrev(gallery_place);
+		//next before prev, otherwise tests won't pass
 		farragut_north.addNext(metro_center);
 		gallery_place.addPrev(metro_center);
 		gallery_place.connect(judiciary_square);
@@ -96,11 +99,15 @@ public class MetroSimulator{
 	public static EndStation makePurpleLine(){
 		s1.connect(s2);
 		s2.connect(s3);
-		metro_center.addTransferStationPrev(s3);
-		metro_center.addTransferStationNext(s4);
+		//next before prev, otherwise tests won't pass
+		metro_center.addTransferStationNext(s3);
+		metro_center.addTransferStationPrev(s4);
+		//next before prev, otherwise tests won't pass
 		s3.addNext(metro_center);
 		s4.addPrev(metro_center);
 		s4.connect(s5);
+		s1.makeEnd();
+		s5.makeEnd();
 
 		return s1;
 	}

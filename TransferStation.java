@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 public class TransferStation extends Station {
-    ArrayList<Station> otherStations = new ArrayList<Station>();
+    public ArrayList<Station> otherStations;
     //constructor
     public TransferStation(String line, String name) {
         super(line, name);
+        this.otherStations = new ArrayList<Station>();
     }
 
     //addTransferStationPrev
@@ -14,7 +15,7 @@ public class TransferStation extends Station {
             prev.next = this;
         }
         //add the station to the list of transfers
-        otherStations.add(this);
+        otherStations.add(prev);
         
     }
 
@@ -26,23 +27,24 @@ public class TransferStation extends Station {
             next.prev = this;
         }
         //add the station to the list of transfers
-        otherStations.add(this);
+        otherStations.add(next);
     }
 
-    //toString FIXME: add support for null -> none (maybe add a getName()
     public String toString() {
-        //FIXME: add if statement to check if next is null, and an if statement to check is prev is null, and then handle correctly (you might even want to do one with both next and prev null)
-        String toReturn =  "TRANSFERSTATION" + this.name +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.name +", next station: " + this.next.name +"\n\tTransfers: \n";
+    String toReturn;
+        if ((this.prev == null) && (this.next == null)) {
+            toReturn = "TRANSFERSTATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: none" + ", next station: none" + "\n\tTransfers: \n";
+        } else if (this.prev == null) {
+           toReturn = "TRANSFERSTATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: none" + ", next station: "  + this.next.name + "\n\tTransfers: \n";
+        } else if (this.next == null) {
+            toReturn = "TRANSFERSTATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: none" + "\n\tTransfers: \n";
+        } else {
+            toReturn = "TRANSFERSTATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: " + this.next.name + "\n\tTransfers: \n";
+        }
+        /*String toReturn =  "TRANSFERSTATION " + this.name +": " + this.line + "line, in service: " + this.inService + ", previous station: " + this.prev.name +", next station: " + this.next.name + "\n\tTransfers: \n";*/
 
-        //for i = 0 to transfers.size
         for (int i = 0; i < otherStations.size(); i++) {
-            //if (transfers.get(i).name == null) {
-                //toReturn += "\tSTATION: " + "none" + ": line" + transfers.get(i).line + " line, in service:" + transfers.get(i).inService + ", previous station: " + transfers.get(i).prev + ", next station: " + transfers.get(i).next + "\n";
-            //}
-            //toReturn += /* */"\tSTATION: " + transfers.get(i).name + ": line" + transfers.get(i).line + " line, in service:" + transfers.get(i).inService + ", previous station: " + transfers.get(i).prev + ", next station: " + transfers.get(i).next + "\n";
-
-            //toReturn += "\t" + transfers.get(i).toString();
-            toReturn += "\t" + otherStations.get(i).toString() + "\n";
+            toReturn += "\t" + this.otherStations.get(i).toString() + "\n";
         }
         return toReturn;
 

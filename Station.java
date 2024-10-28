@@ -23,20 +23,24 @@ public class Station {
     //addPrev
     public void addPrev(Station prev) {
         this.prev = prev;
-        prev.next = this;
+        //safeguard for connect
+        if (prev.next == null) {
+            prev.next = this;
+        }
     }
 
     //addNext
     public void addNext(Station next) {
         this.next = next;
-        if (next != null) {
+        //safeguard for connect
+        if (next.prev == null) {
             next.prev = this;
         }
     }
 
     //isAvailable
     public boolean isAvailable() {
-        return inService;
+        return this.inService;
     }
     //swtichAvailable
     public void switchAvailable() {
@@ -48,17 +52,16 @@ public class Station {
         if ((this.name == other.name) && (this.line == other.line)) {
             return true;
         }
-
         return false;
     }
 
     //connect
     public void connect(Station other) {
-        this.addNext(other);
         other.addPrev(this);
+        this.addNext(other);
     }
 
-    /*
+    
     //tripLength TODO:
     public int tripLength(Station destStation) {
         ArrayList<Station> visitedStations = new ArrayList<Station>();
@@ -76,8 +79,8 @@ public class Station {
 
         return tripLength;
     }
-    */
-    /*
+    
+    
     //TODO: make tripLength helper function
     public int tripLengthRecursive(Station destStation, Station nextStation, ArrayList<Station> visitedStations, int tripLength) {
         //base cases
@@ -136,15 +139,20 @@ public class Station {
         }
         return 0;
     }
-    */
+    
 
     //toString
     public String toString() {
-        //FIXME: handle nulls
-        System.out.println("tostringtest");
-
-        System.out.println(this.name);
-
-        return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: "  + this.next.name;
+        //System.out.println("tostringtest");
+        //System.out.println(this.name);
+        if ((this.prev == null) && (this.next == null)) {
+            return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: none" + ", next station: none";
+        } else if (this.prev == null) {
+            return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: none" + ", next station: "  + this.next.name;
+        } else if (this.next == null) {
+            return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: none";
+        } else {
+            return "STATION " + this.name + ": " + this.line + " line, in service: " + this.inService + ", previous station: " + this.prev.name + ", next station: " + this.next.name;
+        }
     }
 }
