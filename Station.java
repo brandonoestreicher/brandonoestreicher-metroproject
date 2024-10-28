@@ -69,15 +69,17 @@ public class Station {
         if (this.equals(destStation)) {
             return 0;
         }
+        //check if we're being sent on a trip to nowhere (aka the bad place express)
+        if (destStation == null) {
+            return -1;
+        }
         //initialize counter variable to return
         int tripLength = 0;
         //call helper function
-        tripLengthRecursive(destStation, this.next, visitedStations, tripLength);
         if (tripLength < 0) {
             return -1;
         }
-
-        return tripLength;
+        return tripLengthRecursive(destStation, this, visitedStations, tripLength);
     }
     
     
@@ -85,59 +87,54 @@ public class Station {
     public int tripLengthRecursive(Station destStation, Station nextStation, ArrayList<Station> visitedStations, int tripLength) {
         //base cases
 
-        //trying to visit a station that's already been visited
+        //trying to visit a station that's already been visited, return error
         if (visitedStations.contains(nextStation)) {
             return -1;
         }
 
-        //reached a station in which .equals() == true, return 1
-        if (nextStation.equals(destStation) || tripLength >= 0) {
+        //reached a station in which .equals() == true, return success
+        if (nextStation.equals(destStation)) {
             return tripLength;
         }
     
-        //reached an end station that is not equal to the destination w/o finding it: return -1
-        if ((nextStation instanceof EndStation)  && (!nextStation.equals(destStation))) {
-            return -1;
+        //reached an end station that is not equal to the destination w/o finding it: return failure
+        //bad base case... leave this commented out (keeping it here on the wall of shame for posterity)
+        /*if ((nextStation instanceof EndStation)  && (!nextStation.equals(destStation))) {
+            return -2;
+        }*/
+
+        if (nextStation.next == null) {
+            return -3;
         }
 
         //random error catcher idek anymore tbh
         if (tripLength < 0) {
-            return -1;
+            return -4;
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------
-
-        //case 1: on the same line w/ stops in between (type of stops doesn't really matter bc they're on the same line)
-        if (destStation.line == nextStation.line) {
-            visitedStations.add(nextStation);
-            return (tripLengthRecursive(destStation, nextStation.next, visitedStations, tripLength + 1));
-        }
-
-        //case 2: you have to transfer-- the transfer station can lead you to multiple different paths because it not only has its own next, but it also has other nexts in the otherStations. so, you need to explore each path, and see if you get to the destination stop on that path. on a path that doesn't include the destination, you'll reach an end station that isn't the station you're looking for. so then, you want to go back to the transfer station and try going down the next path in the otherStations list, and then repeating that until you find the transfer station. 
-        if (destStation.line != nextStation.line) {
-            if (!(nextStation instanceof TransferStation)) {
-                visitedStations.add(nextStation);
-                return (tripLengthRecursive(destStation, nextStation.next, visitedStations, tripLength + 1));
-            }
+        //recursive case(s)
+        visitedStations.add(nextStation);
+        //case 2: transfer to a different line required
+        //if you have to transfer-- the transfer station can lead you to multiple different paths because it not only has its own next, but it also has other nexts in the otherStations. so, you need to explore each path, and see if you get to the destination stop on that path. on a path that doesn't include the destination, you'll reach an end station that isn't the station you're looking for. so then, you want to go back to the transfer station and try going down the next path in the otherStations list, and then repeating that until you find the transfer station. **you will only enter this if statement if you need to transfer**, otherwise, you'll continue to the bottom of the function and the function will be called again.
             if (nextStation instanceof TransferStation) {
                 TransferStation nextTransferStation = (TransferStation) nextStation;
-                if (!(visitedStations.contains(nextTransferStation))) {
-                    visitedStations.add(nextTransferStation);
-                    return tripLengthRecursive(destStation, nextStation.next, visitedStations, tripLength);
-                }
-                //TODO: check if you can go down regular next path first
+                visitedStations.add(nextTransferStation); //safeguard against casting issues
+                //going through the list of transfers and trying to go down all those paths
                 for (int i = 0; i < nextTransferStation.otherStations.size(); i++) {
-                    int length = tripLengthRecursive(destStation, nextTransferStation.otherStations.get(i), visitedStations, tripLength + 1);
-                    if (length < 0) {
-                        continue;
-                    }
-                    if (length >= 0) {
-                        return length;
+                    if (nextTransferStation.otherStations.get(i).line.equals(destStation.line)) {
+                        int length = tripLengthRecursive(destStation, nextTransferStation.otherStations.get(i), visitedStations, tripLength + 1);
+                        if (length < 0) {
+                            continue;
+                        }
+                        if (length >= 0) {
+                            return length;
+                        }
                     }
                 }
             }
-        }
-        return 0;
+        //case 1: no line transfer required to get to the next station-- you can move forward normally
+        return tripLengthRecursive(destStation, nextStation.next, visitedStations, tripLength + 1);
     }
     
 
