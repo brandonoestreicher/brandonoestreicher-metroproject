@@ -62,7 +62,7 @@ public class Station {
     }
 
     
-    //tripLength TODO:
+    //tripLength
     public int tripLength(Station destStation) {
         ArrayList<Station> visitedStations = new ArrayList<Station>();
         //check if stations are equal off the bat, return 0
@@ -83,7 +83,8 @@ public class Station {
     }
     
     
-    //TODO: make tripLength helper function
+    //tripLength helper function
+    
     public int tripLengthRecursive(Station destStation, Station nextStation, ArrayList<Station> visitedStations, int tripLength) {
         //base cases
 
